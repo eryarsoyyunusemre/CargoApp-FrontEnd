@@ -1,14 +1,14 @@
 <div class="container">
   <h2>Kargo Teslimat Formu</h2>
-  <form (ngSubmit)="onSubmit()" #packageForm="ngForm" class="form">
+  <form (ngSubmit)="onSubmit(packageForm)" #packageForm="ngForm" class="form">
     <div class="form-group">
       <label for="Id">Kargo ID:</label>
       <input
-        type="number"
+        type="string"
         id="Id"
         class="form-control"
         required
-        [(ngModel)]="packageData.Id"
+        ngModel
         name="Id"
         placeholder="Kargo ID girin"
       />
@@ -17,11 +17,11 @@
     <div class="form-group">
       <label for="senderId">Gönderici ID:</label>
       <input
-        type="number"
+        type="string"
         id="senderId"
         class="form-control"
         required
-        [(ngModel)]="packageData.senderId"
+        ngModel
         name="senderId"
         placeholder="Gönderici ID girin"
       />
@@ -30,11 +30,11 @@
     <div class="form-group">
       <label for="receiverId">Alıcı ID:</label>
       <input
-        type="number"
+        type="string"
         id="receiverId"
         class="form-control"
         required
-        [(ngModel)]="packageData.receiverId"
+        ngModel
         name="receiverId"
         placeholder="Alıcı ID girin"
       />
@@ -47,7 +47,7 @@
         id="packageCount"
         class="form-control"
         required
-        [(ngModel)]="packageData.packageCount"
+        ngModel
         name="packageCount"
         placeholder="Paket adedini girin"
       />
@@ -60,7 +60,7 @@
         id="packageWeight"
         class="form-control"
         required
-        [(ngModel)]="packageData.packageWeight"
+        ngModel
         name="packageWeight"
         placeholder="Paket ağırlığını girin"
       />
@@ -72,7 +72,7 @@
         id="description"
         class="form-control"
         required
-        [(ngModel)]="packageData.description"
+        ngModel
         name="description"
         placeholder="Açıklama girin"
         rows="4"
@@ -82,12 +82,27 @@
     <button type="submit" class="btn btn-primary">Gönder</button>
   </form>
 
-  <div *ngIf="submitted" class="submitted-data">
-    <h3>Gönderilen Bilgiler:</h3>
-    <p><strong>Gönderici ID:</strong> {{ packageData.senderId }}</p>
-    <p><strong>Alıcı ID:</strong> {{ packageData.receiverId }}</p>
-    <p><strong>Paket Adedi:</strong> {{ packageData.packageCount }}</p>
-    <p><strong>Paket Ağırlığı:</strong> {{ packageData.packageWeight }} kg</p>
-    <p><strong>Açıklama:</strong> {{ packageData.description }}</p>
-  </div>
+  <h3>Mevcut Kargolar</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Kargo ID</th>
+        <th>Gönderici ID</th>
+        <th>Alıcı ID</th>
+        <th>Paket Adedi</th>
+        <th>Paket Ağırlığı (kg)</th>
+        <th>Açıklama</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pkg of packages">
+        <td>{{ pkg.Id }}</td>
+        <td>{{ pkg.senderId }}</td>
+        <td>{{ pkg.receiverId }}</td>
+        <td>{{ pkg.packageCount }}</td>
+        <td>{{ pkg.packageWeight }}</td>
+        <td>{{ pkg.description }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

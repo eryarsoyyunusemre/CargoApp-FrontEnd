@@ -1,28 +1,36 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { ShippingService } from './shipping.service';
 
 @Component({
   selector: 'app-shipping',
   standalone: true,
   imports: [RouterOutlet, FormsModule, CommonModule, RouterLink],
   templateUrl: './shipping.component.html',
-  styleUrl: './shipping.component.css',
+  styleUrls: ['./shipping.component.css'],
+  providers: [ShippingService],
 })
-export class ShippingComponent {
-  packageData = {
-    Id: '',
-    senderId: '',
-    receiverId: '',
-    packageCount: '',
-    packageWeight: '',
-    description: '',
-  };
-
+export class ShippingComponent implements OnInit {
   submitted = false;
+  packages: any; // Kargo verilerini saklamak için bir değişken ekleyin
 
-  onSubmit() {
+  constructor(private shippingService: ShippingService) {}
+
+  async ngOnInit() {
+    this.packages = await this.shippingService.getPackages(); // Veriyi alın ve saklayın
+  }
+
+  async onSubmit(shippingForm: NgForm) {
     this.submitted = true;
+
+    if (shippingForm.valid) {
+      await this.shippingService.addPackage(shippingForm.value);
+      shippingForm.reset();
+      this.packages = await this.shippingService.getPackages(); // Yeni verileri alın ve güncelleyin
+    } else {
+      console.log('Form geçersiz');
+    }
   }
 }

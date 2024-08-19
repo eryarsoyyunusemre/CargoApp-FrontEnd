@@ -1,21 +1,45 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ShippingDto } from './dto/shipping.dto'; // Arayüz dosyanızın yoluna göre bu kısmı güncelleyin
+import axios from 'axios';
+import { ShippingDto } from './dto/shipping.dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShippingService {
-  private apiUrl = 'https://api.example.com/packages'; // API URL'inizi buraya ekleyin
+  private apiUrl = 'http://localhost:5148';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  addPackage(packageData: ShippingDto): Observable<ShippingDto> {
-    return this.http.post<ShippingDto>(this.apiUrl, packageData);
+  async addPackage(packageData: any) {
+    try {
+      const dto: ShippingDto = {
+        id: packageData.Id,
+        senderId: packageData.senderId,
+        receiverId: packageData.receiverId,
+        packageCount: packageData.packageCount,
+        packageWeight: packageData.packageWeight,
+        description: packageData.description,
+      };
+      const res = await axios
+        .post(`${this.apiUrl}/api/shipping`, packageData)
+        .then((res) => {
+          res.data;
+        });
+
+      return res;
+    } catch (error) {
+      console.log(error);
+
+      throw error;
+    }
   }
 
-  getPackages(): Observable<ShippingDto[]> {
-    return this.http.get<ShippingDto[]>(this.apiUrl);
+  async getPackages() {
+    try {
+      const res = await axios.get(`${this.apiUrl}/api/shipping`);
+      return res.data;
+    } catch (error) {
+      throw error;
+    }
   }
 }
