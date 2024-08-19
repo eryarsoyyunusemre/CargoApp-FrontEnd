@@ -1,0 +1,93 @@
+<div class="container">
+  <h2>Kargo Teslimat Formu</h2>
+  <form (ngSubmit)="onSubmit()" #packageForm="ngForm" class="form">
+    <div class="form-group">
+      <label for="Id">Kargo ID:</label>
+      <input
+        type="number"
+        id="Id"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.Id"
+        name="Id"
+        placeholder="Kargo ID girin"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="senderId">Gönderici ID:</label>
+      <input
+        type="number"
+        id="senderId"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.senderId"
+        name="senderId"
+        placeholder="Gönderici ID girin"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="receiverId">Alıcı ID:</label>
+      <input
+        type="number"
+        id="receiverId"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.receiverId"
+        name="receiverId"
+        placeholder="Alıcı ID girin"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="packageCount">Paket Adedi:</label>
+      <input
+        type="number"
+        id="packageCount"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.packageCount"
+        name="packageCount"
+        placeholder="Paket adedini girin"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="packageWeight">Paket Ağırlığı (kg):</label>
+      <input
+        type="number"
+        id="packageWeight"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.packageWeight"
+        name="packageWeight"
+        placeholder="Paket ağırlığını girin"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Açıklama:</label>
+      <textarea
+        id="description"
+        class="form-control"
+        required
+        [(ngModel)]="packageData.description"
+        name="description"
+        placeholder="Açıklama girin"
+        rows="4"
+      ></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Gönder</button>
+  </form>
+
+  <div *ngIf="submitted" class="submitted-data">
+    <h3>Gönderilen Bilgiler:</h3>
+    <p><strong>Gönderici ID:</strong> {{ packageData.senderId }}</p>
+    <p><strong>Alıcı ID:</strong> {{ packageData.receiverId }}</p>
+    <p><strong>Paket Adedi:</strong> {{ packageData.packageCount }}</p>
+    <p><strong>Paket Ağırlığı:</strong> {{ packageData.packageWeight }} kg</p>
+    <p><strong>Açıklama:</strong> {{ packageData.description }}</p>
+  </div>
+</div>
