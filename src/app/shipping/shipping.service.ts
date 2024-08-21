@@ -41,4 +41,13 @@ export class ShippingService {
       throw error;
     }
   }
+
+  async getMemberIds() {
+    try {
+      const response = await axios.get(`${this.apiUrl}/getId`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

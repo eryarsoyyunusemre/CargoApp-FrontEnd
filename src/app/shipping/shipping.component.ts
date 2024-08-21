@@ -15,11 +15,13 @@ import { ShippingService } from './shipping.service';
 export class ShippingComponent implements OnInit {
   submitted = false;
   packages: any; // Kargo verilerini saklamak için bir değişken ekleyin
+  memberIds: any[] = []; // Alıcı ID'leri için bir değişken
 
   constructor(private shippingService: ShippingService) {}
 
   async ngOnInit() {
     this.packages = await this.shippingService.getPackages(); // Veriyi alın ve saklayın
+    this.memberIds = await this.shippingService.getMemberIds(); // Gönderici ID'lerini alın
   }
 
   async onSubmit(shippingForm: NgForm) {

@@ -3,28 +3,30 @@
   <form (ngSubmit)="onSubmit(packageForm)" #packageForm="ngForm" class="form">
     <div class="form-group">
       <label for="senderId">Gönderici ID:</label>
-      <input
-        type="string"
+      <select
         id="senderId"
         class="form-control"
         required
         ngModel
         name="senderId"
-        placeholder="Gönderici ID girin"
-      />
+        placeholder="Gönderici ID seçin"
+      >
+        <option *ngFor="let id of memberIds" [value]="id">{{ id }}</option>
+      </select>
     </div>
 
     <div class="form-group">
       <label for="receiverId">Alıcı ID:</label>
-      <input
-        type="string"
+      <select
         id="receiverId"
         class="form-control"
         required
         ngModel
         name="receiverId"
-        placeholder="Alıcı ID girin"
-      />
+        placeholder="Alıcı ID seçin"
+      >
+        <option *ngFor="let id of memberIds" [value]="id">{{ id }}</option>
+      </select>
     </div>
 
     <div class="form-group">
@@ -83,7 +85,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let pkg of packages">
-        <td>{{ pkg.Id }}</td>
+        <td>{{ pkg.id }}</td>
         <td>{{ pkg.senderId }}</td>
         <td>{{ pkg.receiverId }}</td>
         <td>{{ pkg.packageCount }}</td>
