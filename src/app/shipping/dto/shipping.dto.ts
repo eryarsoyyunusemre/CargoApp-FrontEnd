@@ -1,5 +1,4 @@
 export interface ShippingDto {
-  id: string;
   senderId: string;
   receiverId: string;
   packageCount: number;

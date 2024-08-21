@@ -13,7 +13,6 @@ export class ShippingService {
   async addPackage(packageData: any) {
     try {
       const dto: ShippingDto = {
-        id: packageData.Id,
         senderId: packageData.senderId,
         receiverId: packageData.receiverId,
         packageCount: packageData.packageCount,
@@ -21,7 +20,7 @@ export class ShippingService {
         description: packageData.description,
       };
       const res = await axios
-        .post(`${this.apiUrl}/api/shipping`, packageData)
+        .post(`${this.apiUrl}/api/shipping`, dto)
         .then((res) => {
           res.data;
         });

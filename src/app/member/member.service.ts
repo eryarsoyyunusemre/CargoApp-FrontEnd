@@ -26,7 +26,6 @@ export class MemberService {
   async postData(data: any) {
     try {
       const dto: MemberDto = {
-        id: data.id,
         name: data.name,
         lastname: data.lastname,
         address: data.address,
